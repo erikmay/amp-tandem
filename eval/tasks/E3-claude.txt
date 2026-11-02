@@ -1,0 +1,6 @@
+Eval E3-claude (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/e3 && git init -q /tmp/e3
+2. Start one agent with agent_start: harness claude, name "a", cwd /tmp/e3, effort low, with exactly this task:
+"Set up and fix a small TypeScript project: 1. Run `git clone https://gist.github.com/1b0e7a261e6b9c57fe4bb419370dcc5e.git fx` and work inside ./fx. 2. Run `bun install`. 3. Run `bun test`. Some tests fail. Find and fix the bug in cart.ts. Do not change the tests. 4. Run `bun test` again until all tests pass. 5. Run `bunx tsc --noEmit` and then `bunx vite build`. Both must succeed. 6. Reply with exactly one line: DONE"
+3. End your turn right after starting it, with one short sentence. Do not call agent_wait.
+4. When the [tandem] report arrives, run `bun test` and `bunx tsc --noEmit` in /tmp/e3/fx yourself. Then reply with exactly one line: RESULT claude <ok|fail>

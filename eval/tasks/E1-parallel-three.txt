@@ -1,0 +1,11 @@
+Eval E1 (plugin tandem). Load the skill tandem:delegate first.
+
+1. Create three empty git repos: /tmp/e1/cc, /tmp/e1/cx, /tmp/e1/pi (mkdir -p, git init).
+2. Start three agents in parallel with agent_start, one per repo: harness claude name "cc", harness codex name "cx", harness pi name "pi". Use effort low. Give each exactly this task:
+   "Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 15: for k = 1, 2, ..., 15, run the shell command `echo $((k*k))` with k replaced by the number. Step 16: write all 15 outputs, one per line in order, to the file squares.txt. Then reply with exactly one line: SUM <sum of the 15 numbers>"
+3. Do not call agent_wait. End your turn right after starting all three, with one short sentence.
+4. Reports arrive as [tandem] messages. When a report arrives and not all three have finished, reply with one short sentence and end your turn again.
+5. When all three have finished: check each /tmp/e1/<name>/squares.txt yourself (15 lines, last line 225). Then call agent_list and copy its full output into your reply inside a code block. Then add with exactly these lines and nothing else:
+RESULT cc <ok|fail> <seconds of turn 1>
+RESULT cx <ok|fail> <seconds of turn 1>
+RESULT pi <ok|fail> <seconds of turn 1>

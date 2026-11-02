@@ -1,0 +1,7 @@
+Eval E8-reload (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/e8 && git init -q /tmp/e8
+2. Start one agent with agent_start: harness claude, name "r", cwd /tmp/e8, effort low, with exactly this task:
+"Run these shell commands one by one, each as its own tool call: `sleep 15 && echo one`, `sleep 15 && echo two`, `sleep 15 && echo three`. Then write the word reloaded to r.txt and reply with exactly: FINISHED"
+3. Right after starting it, reload the Amp plugins in this thread (use your manage_amp tool or whatever Amp offers to reload plugins). Say in one sentence whether the reload worked and how you did it.
+4. End your turn. Do not call agent_wait.
+5. When the [tandem] report for "r" arrives, check /tmp/e8/r.txt and call agent_list. Reply with the agent_list output in a code block, then exactly one line: RESULT reload <ok|fail> (ok only if the report arrived by itself after the reload and r.txt contains reloaded)

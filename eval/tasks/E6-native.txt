@@ -1,0 +1,3 @@
+Eval E6-native. Work in /tmp/e6 (mkdir -p it, cd into it for every command). Do the task yourself, do not delegate.
+Task: Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 40: for k = 1, 2, ..., 40, run the shell command `echo $((k*k))` with k replaced by the number. Step 41: write all 40 outputs, one per line in order, to the file squares.txt. Then reply with exactly one line: SUM <sum of the 40 numbers>
+After that, check /tmp/e6/squares.txt (40 lines, last line 1600) and reply with exactly one line: RESULT native <ok|fail>

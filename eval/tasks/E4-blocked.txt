@@ -1,0 +1,7 @@
+Eval E4-blocked (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/e4 && git init -q /tmp/e4
+2. Start one agent with agent_start: harness claude, name "q", cwd /tmp/e4, effort low, with exactly this task:
+"Use your AskUserQuestion tool to ask the user one multiple-choice question: 'Which color?' with the options Red and Blue. Then write the chosen color in lowercase to color.txt and reply with exactly: COLOR <color>"
+3. End your turn right after starting it. Do not call agent_wait.
+4. When the [tandem] report says the agent needs input, answer the question for the user with "Blue": use agent_send with keys (look at the screen in the report to pick the right keys; usually ["down","enter"] selects the second option, or type the option number). End your turn.
+5. When the next report arrives, check /tmp/e4/color.txt yourself. Reply with exactly one line: RESULT blocked <ok|fail> (ok only if color.txt contains blue)

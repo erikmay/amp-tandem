@@ -1,0 +1,6 @@
+Eval E6-pi (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/e6 && git init -q /tmp/e6
+2. Start one agent with agent_start: harness pi, name "a", cwd /tmp/e6, effort low, with exactly this task:
+"Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 40: for k = 1, 2, ..., 40, run the shell command `echo $((k*k))` with k replaced by the number. Step 41: write all 40 outputs, one per line in order, to the file squares.txt. Then reply with exactly one line: SUM <sum of the 40 numbers>"
+3. End your turn right after starting it, with one short sentence. Do not call agent_wait.
+4. When the [tandem] report arrives, check /tmp/e6/squares.txt yourself (40 lines, last line 1600). Then reply with exactly one line: RESULT pi <ok|fail>

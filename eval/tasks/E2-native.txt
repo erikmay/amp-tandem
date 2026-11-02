@@ -1,0 +1,3 @@
+Eval E2-native. Work in /tmp/e2 (mkdir -p it, cd into it for every command). Do the task yourself, do not delegate.
+Task: Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 15: for k = 1, 2, ..., 15, run the shell command `echo $((k*k))` with k replaced by the number. Step 16: write all 15 outputs, one per line in order, to the file squares.txt. Then reply with exactly one line: SUM <sum of the 15 numbers>
+After that, check /tmp/e2/squares.txt (15 lines, last line 225) and reply with exactly one line: RESULT native <ok|fail>

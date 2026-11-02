@@ -1,0 +1,3 @@
+Eval E7-parallel-native. Do the task yourself, do not delegate. Do it three times, in /tmp/e7/a, /tmp/e7/b and /tmp/e7/c (mkdir -p them; cd into the directory for every command).
+Task: Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 15: for k = 1, 2, ..., 15, run the shell command `echo $((k*k))` with k replaced by the number. Step 16: write all 15 outputs, one per line in order, to the file squares.txt.
+After that, check each squares.txt (15 lines, last line 225) and reply with exactly one line: RESULT native <ok|fail>

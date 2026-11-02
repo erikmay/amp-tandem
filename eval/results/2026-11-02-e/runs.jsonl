@@ -1,0 +1,1 @@
+{"wall_s": 98.9, "cold_s": 34.8, "parent_turns": 9, "parent_tools": 9, "wakes": 3, "child_turn_times": ["#1 done 22s", "#1 done 24s", "#1 done 30s"], "results": ["RESULT cc ok 22", "RESULT cx ok 24", "RESULT pi ok 30"], "ok": true, "task": "E1-parallel-three", "rep": 1, "size": "a1.small", "mode": "high", "timed_out": false}

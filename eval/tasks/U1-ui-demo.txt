@@ -1,0 +1,4 @@
+UI demo U1 (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/u1/cc /tmp/u1/cx /tmp/u1/pi and git init -q each.
+2. Start three agents in parallel with agent_start (effort low): harness claude name "cc" cwd /tmp/u1/cc, harness codex name "cx" cwd /tmp/u1/cx, harness pi name "pi" cwd /tmp/u1/pi. Each gets exactly this task: "Do the following steps. Each step must be its own separate tool call. Never combine, batch, or parallelize steps. Steps 1 to 40: for k = 1, 2, ..., 40, run the shell command `sleep 2 && echo $((k*k))` with k replaced by the number. Step 41: write all 40 outputs to squares.txt. Then reply with exactly one line: SUM <sum>"
+3. End your turn right after starting them. When reports arrive, reply with one short sentence each. When all three are done, reply: RESULT ui ok

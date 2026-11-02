@@ -1,0 +1,7 @@
+Eval E5-steer (plugin tandem). Load the skill tandem:delegate first.
+1. mkdir -p /tmp/e5 && git init -q /tmp/e5
+2. Start one agent with agent_start: harness codex, name "s", cwd /tmp/e5, effort low, with exactly this task:
+"Run these shell commands one by one, each as its own tool call: `sleep 20 && echo one`, `sleep 20 && echo two`, `sleep 20 && echo three`. Then reply with exactly: FINISHED"
+3. Call agent_wait with name "s" and seconds 15 (it will still be working).
+4. Then call agent_send with name "s", interrupt true, and message "Stop the sleep commands. Instead, write the word steered to steer.txt and reply with exactly: STEERED".
+5. End your turn. When the [tandem] report arrives, check /tmp/e5/steer.txt. Then call agent_stop for "s". Reply with exactly one line: RESULT steer <ok|fail> (ok only if steer.txt contains steered)

@@ -1,0 +1,1 @@
+{"wall_s": 71.4, "cold_s": 28.8, "parent_turns": 11, "parent_tools": 9, "wakes": 1, "child_turn_times": ["#1 exited 4s"], "results": ["RESULT reload fail"], "ok": false, "task": "E8-reload", "rep": 1, "size": "a1.small", "mode": "high", "timed_out": false}
