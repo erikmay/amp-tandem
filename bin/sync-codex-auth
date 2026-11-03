@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copy this machine's Codex ChatGPT login (~/.codex/auth.json, with access and refresh token)
-# into the personal Amp secret CODEX_AUTH_JSON. Orbs then get it as an env var, and codex and pi
+# into the personal Amp secret CODEX_AUTH_JSON of every Amp account saved in the CLI. Orbs then get it as an env var, and codex and pi
 # can use your ChatGPT subscription there (tandem reads it; any other tool can too).
 #
 # When the access token has less than 40 h left, this script first runs one tiny `codex exec`
@@ -64,9 +64,18 @@ fi
 
 payload=$(python3 -I -c 'import json,sys; print(json.dumps(json.load(open(sys.argv[1])), separators=(",", ":")))' "$AUTH")
 sum=$(printf %s "$payload" | shasum -a 256 | cut -d' ' -f1)
-if [ "$sum" = "$(cat "$CACHE/codex-auth.sha" 2>/dev/null)" ]; then
-  echo "$(date '+%F %T') unchanged, ${left} h left"; exit 0
-fi
-printf %s "$payload" | amp secrets set CODEX_AUTH_JSON --user --secret --data-file - >/dev/null
-echo "$sum" > "$CACHE/codex-auth.sha"
-echo "$(date '+%F %T') uploaded CODEX_AUTH_JSON, ${left} h left"
+
+# Upload to every Amp account saved in the CLI, then restore the active one.
+accounts=$(amp account list | sed -E 's/^[* ] +//; s/ \(.*//')
+active=$(amp account list | sed -nE '/^\*/{s/^\* +//; s/ \(.*//; p;}')
+trap '[ -n "$active" ] && amp account switch "$active" >/dev/null' EXIT
+for acct in $accounts; do
+  shafile="$CACHE/codex-auth.$acct.sha"
+  if [ "$sum" = "$(cat "$shafile" 2>/dev/null)" ]; then
+    echo "$(date '+%F %T') $acct: unchanged, ${left} h left"; continue
+  fi
+  amp account switch "$acct" >/dev/null
+  printf %s "$payload" | amp secrets set CODEX_AUTH_JSON --user --secret --data-file - >/dev/null
+  echo "$sum" > "$shafile"
+  echo "$(date '+%F %T') $acct: uploaded CODEX_AUTH_JSON, ${left} h left"
+done
