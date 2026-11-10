@@ -30,18 +30,11 @@ Do it yourself:
 
 ## Brief the child
 
-The child does not see this thread. Write the task as a complete brief:
-1. Goal, in one or two sentences.
-2. Context: repository path, branch, relevant files, facts you already found.
-3. Constraints: what not to touch, no push, no new dependencies, stay in these files.
-4. Acceptance check: the exact command that must pass.
-5. Stop condition (for loops: the maximum number of experiments).
-6. Final message: "End with: changed files, commands run with results, open problems."
+The child does not see this thread. Give it the goal, the context (repository path, branch, relevant files, facts you found), constraints (files it may touch, no push, no new dependencies), the exact acceptance command, a stop condition (for loops: the maximum number of experiments), and "End with: changed files, commands run with results, open problems."
 
 ## While it runs
 
-- `agent_start` returns at once. A button above the composer shows what the child does.
-  The user can watch and type in the Terminal pane.
+- The user can watch and type in the Terminal pane.
 - For work longer than a minute, end your turn. The plugin posts an `[tandem] <name> ...`
   message with the report when the child ends a turn or needs input. That message wakes you.
 - For short work, call `agent_wait` (blocks up to 600 s).
@@ -58,7 +51,6 @@ The child does not see this thread. Write the task as a complete brief:
 
 ## Review before you trust it
 
-- Read the diff yourself (`git diff`, `git status`).
-- Run the acceptance check yourself. Do not trust "tests pass" in the child's summary.
-- Check facts the child reports: commit hashes, counts, file names.
+- Read the diff and run the acceptance check yourself; do not trust "tests pass" in the
+  child's summary. Check reported facts (commit hashes, counts, file names).
 - Report to the user: one line per child, what it did, and whether you verified it.
